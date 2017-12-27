@@ -138,6 +138,7 @@ typedef struct ngx_http_upload_loc_conf_s {
 
     unsigned int      md5:1;
     unsigned int      sha1:1;
+	unsigned int	  sha256:1;
     unsigned int      crc32:1;
 } ngx_http_upload_loc_conf_t;
 
@@ -150,6 +151,11 @@ typedef struct ngx_http_upload_sha1_ctx_s {
     SHA_CTX     sha1;
     u_char      sha1_digest[SHA_DIGEST_LENGTH * 2];
 } ngx_http_upload_sha1_ctx_t;
+
+typedef struct ngx_http_upload_sha256_ctx_s {
+    SHA256_CTX     sha256;
+    u_char         sha256_digest[SHA256_DIGEST_LENGTH * 2];
+} ngx_http_upload_sha256_ctx_t;
 
 /*
  * Upload module context
@@ -192,6 +198,7 @@ typedef struct ngx_http_upload_ctx_s {
 
     ngx_http_upload_md5_ctx_t   *md5_ctx;    
     ngx_http_upload_sha1_ctx_t  *sha1_ctx;    
+    ngx_http_upload_sha256_ctx_t  *sha256_ctx;    
     uint32_t                    crc32;    
 
     ngx_array_t         *current_content_filter_chain;    
